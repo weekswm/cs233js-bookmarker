@@ -32,9 +32,46 @@ Create a class called Bookmarker
                     title: "https://www.pexels.com/"
                 },
             ]
-        -   call the method fillBookmarksList and pass in the bookmarks
+        -   call the method fillBookmarksList and pass in the bookmarks*/
 
-    -   Add the generateBookmarkHtml method
+class Bookmarker {
+    constructor() {
+        this.bookmarks = [
+            {
+                description: "Really cool site for open source photos", 
+                image: "",
+                link: "https://www.pexels.com/", 
+                title: "https://www.pexels.com/"
+            },
+            {
+                description: "Great resource for open source photos", 
+                image: "",
+                link: "https://commons.wikimedia.org/wiki/Category:Images", 
+                title: "Category:Images - Wikimedia Commons"
+            }
+        ];
+        if (localStorage['bookmarks'])
+            this.bookmarks = JSON.parse(localStorage.getItem('bookmarks'))
+        else {
+            this.bookmarks = [
+                {
+                    description: "Really cool site for open source photos", 
+                    image: "",
+                    link: "https://www.pexels.com/", 
+                    title: "https://www.pexels.com/"
+                },
+                {
+                    description: "Great resource for open source photos", 
+                    image: "",
+                    link: "https://commons.wikimedia.org/wiki/Category:Images", 
+                    title: "Category:Images - Wikimedia Commons"
+                }
+            ];
+        }
+        this.fillBookmarksList = this.this.fillBookmarksList.bind(this);
+    }
+
+    /*  -   Add the generateBookmarkHtml method
         -   This method returns a template literal containing the html for ONE bookmark in the array.
             It gets called in fillBookMarksList.  It has 2 parameters a bookmark and an index.
         -   CUT the html for ONE bookmark from your html page into the body of your method.
@@ -42,7 +79,16 @@ Create a class called Bookmarker
         -   Replace the hardcoded description, image, link and title (of the sample bookmark) 
             with template strings that use the properties of the bookmark object
         -   Return the template literal
+    */
+   
+    generateBookmarkHtml(bookmark, index) {
+        return `
 
+        `;
+    }
+}
+
+/*  
     -   Add the fillBookmarksList method.  It has bookmarks as its parameter.
         -   Save the bookmarks to local storage
         -   Create a variable bookmarkHtml and set it equal to the
