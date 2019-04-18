@@ -41,7 +41,7 @@ class Bookmarker {
                 description: "Really cool site for open source photos", 
                 image: "",
                 link: "https://www.pexels.com/", 
-                title: "https://www.pexels.com/"
+                title: "Free stock photos - Pexels"
             },
             {
                 description: "Great resource for open source photos", 
@@ -68,7 +68,7 @@ class Bookmarker {
                 }
             ];
         }
-        this.fillBookmarksList = this.this.fillBookmarksList.bind(this);
+        this.fillBookmarksList = this.fillBookmarksList.bind(this);
     }
 
     /*  -   Add the generateBookmarkHtml method
@@ -83,13 +83,27 @@ class Bookmarker {
    
     generateBookmarkHtml(bookmark, index) {
         return `
-
+            <div class="floater content">
+                <div class="bookmark-form">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <img class="img-thumbnail" src="${bookmark.image}">
+                        </div>
+                        <div class="col-sm-6" type="text">
+                            <ul class="bookmarkList list-unstyled" id="bookmarkList">
+                                <li>Title: ${bookmark.title}</li>
+                                <li>Description: ${bookmark.description}</li>
+                                <li>
+                                    <a>Link: ${bookmark.link}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         `;
     }
-}
-
-/*  
-    -   Add the fillBookmarksList method.  It has bookmarks as its parameter.
+    /*-   Add the fillBookmarksList method.  It has bookmarks as its parameter.
         -   Save the bookmarks to local storage
         -   Create a variable bookmarkHtml and set it equal to the
             the return value for each of the individual tasks combined
@@ -99,7 +113,17 @@ class Bookmarker {
                     (html, task, index) => html += this.generateTaskHtml(task, index), 
                     '');
         -   Set contents of the bookmarks-list element on the page to the bookmarkHtml variable
-        );
+        );*/
+    fillBookmarksList(bookmarks) {
+        let bookmarkHtml = this.bookmarks.reduce(
+            (html, bookmark, index) => html += this.generateBookmarkHtml(bookmark, index), 
+            '');
+        document.getElementById("bookmarkList").innerHTML = bookmarksHtml;
+    }
+}
+
+/*  
+    
     END OF PART 1 - TEST AND DEBUG YOUR CODE - YOU SHOULD SEE HARDCODED BOOKMARKS YOUR ON PAGE
 
     PART 2 - Delete a bookmark
