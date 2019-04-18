@@ -58,3 +58,7 @@ body.show-floater .overlay {
     padding: 4px 8px;
     font-size: 14px;
 }
+
+.title  {
+    text-decoration-color: #262520
+}
