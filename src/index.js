@@ -101,6 +101,10 @@ class Bookmarker {
                                 </li>
                             </ul>
                         </div>
+                        <div class="col-md-1 col-xs-1 col-lg-1 col-sm-1 delete-icon-area">
+                            <a class="" href="/" onclick="bookmarker.deleteBookmark(event, ${index})">
+                            <i id="deleteBookmark" class="delete-icon glyphicon glyphicon-trash"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -124,6 +128,18 @@ class Bookmarker {
             '');
         document.getElementById("bookmarkList").innerHTML = bookmarkHtml;
     }
+    /*-   Add the deleteBookmark method.  It has 2 parameters, event and index
+        -   prevent the default action of the anchor tag using the event parameter
+        -   delete the bookmark from the list based on the index
+        -   call fillBookmarksList
+    -   Add an onclick handler to the delete icon
+        The handler should call the deleteBookmark method with event 
+        and index (template string) as its parameters*/
+    deleteBookmark(event, index) {
+        event.preventDefault();
+        this.bookmarks.splice(index, 1);
+        this.fillBookmarksList();
+    }
 }
 
 /*  
@@ -131,13 +147,7 @@ class Bookmarker {
     END OF PART 1 - TEST AND DEBUG YOUR CODE - YOU SHOULD SEE HARDCODED BOOKMARKS YOUR ON PAGE
 
     PART 2 - Delete a bookmark
-    -   Add the deleteBookmark method.  It has 2 parameters, event and index
-        -   prevent the default action of the anchor tag using the event parameter
-        -   delete the bookmark from the list based on the index
-        -   call fillBookmarksList
-    -   Add an onclick handler to the delete icon
-        The handler should call the deleteBookmark method with event 
-        and index (template string) as its parameters
+    
     END OF PART 2 - TEST AND DEBUG YOUR CODE
 
     PART 3 - Add a bookmark
