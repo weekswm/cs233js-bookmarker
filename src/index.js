@@ -36,20 +36,22 @@ Create a class called Bookmarker
 
 class Bookmarker {
     constructor() {
-        this.bookmarks = [
-            {
-                description: "Really cool site for open source photos", 
-                image: "",
-                link: "https://www.pexels.com/", 
-                title: "Free stock photos - Pexels"
-            },
-            {
-                description: "Great resource for open source photos", 
-                image: "",
-                link: "https://commons.wikimedia.org/wiki/Category:Images", 
-                title: "Category:Images - Wikimedia Commons"
-            }
-        ];
+        
+            this.bookmarks = [
+                {
+                    description: "Really cool site for open source photos", 
+                    image: "",
+                    link: "https://www.pexels.com/", 
+                    title: "Free stock photos - Pexels"
+                },
+                {
+                    description: "Great resource for open source photos", 
+                    image: "",
+                    link: "https://commons.wikimedia.org/wiki/Category:Images", 
+                    title: "Category:Images - Wikimedia Commons"
+                }
+            ];
+        
         if (localStorage['bookmarks'])
             this.bookmarks = JSON.parse(localStorage.getItem('bookmarks'))
         else {
@@ -69,6 +71,7 @@ class Bookmarker {
             ];
         }
         this.fillBookmarksList = this.fillBookmarksList.bind(this);
+        this.fillBookmarksList();
     }
 
     /*  -   Add the generateBookmarkHtml method
@@ -114,11 +117,12 @@ class Bookmarker {
                     '');
         -   Set contents of the bookmarks-list element on the page to the bookmarkHtml variable
         );*/
-    fillBookmarksList(bookmarks) {
+    fillBookmarksList() {
+        localStorage['bookmarks'] = JSON.stringify(this.bookmarks);
         let bookmarkHtml = this.bookmarks.reduce(
             (html, bookmark, index) => html += this.generateBookmarkHtml(bookmark, index), 
             '');
-        document.getElementById("bookmarkList").innerHTML = bookmarksHtml;
+        document.getElementById("bookmarkList").innerHTML = bookmarkHtml;
     }
 }
 
@@ -162,4 +166,5 @@ class Bookmarker {
     Add a window on load event handler that instantiates a Bookmarker object.  
     Use and arrow or anonymous function
 */
-
+let bookmarker;
+window.onload = () => {bookmarker = new Bookmarker();}
