@@ -71,6 +71,7 @@ class Bookmarker {
             ];
         }
         this.fillBookmarksList = this.fillBookmarksList.bind(this);
+        this.addBookmark = this.addBookmark.bind(this);
         this.fillBookmarksList();
     }
 
@@ -92,8 +93,8 @@ class Bookmarker {
                         <div class="col-sm-2">
                             <img class="img-thumbnail" src="${bookmark.image}">
                         </div>
-                        <div class="col-sm-6" type="text">
-                            <ul class="bookmarkList list-unstyled" id="bookmarkList">
+                        <div class="col-sm-9" type="text">
+                            <ul class="bookmarkList list-unstyled">
                                 <li>Title: ${bookmark.title}</li>
                                 <li>Description: ${bookmark.description}</li>
                                 <li>
@@ -102,7 +103,7 @@ class Bookmarker {
                             </ul>
                         </div>
                         <div class="col-md-1 col-xs-1 col-lg-1 col-sm-1 delete-icon-area">
-                            <a class="" href="/" onclick="bookmarker.deleteBookmark(event, ${index})">
+                            <a class="" href="#" onclick="bookmarker.deleteBookmark(event, ${index})">
                             <i id="deleteBookmark" class="delete-icon glyphicon glyphicon-trash"></i></a>
                         </div>
                     </div>
@@ -123,10 +124,10 @@ class Bookmarker {
         );*/
     fillBookmarksList() {
         localStorage['bookmarks'] = JSON.stringify(this.bookmarks);
-        let bookmarkHtml = this.bookmarks.reduce(
+        let bookmarksHtml = this.bookmarks.reduce(
             (html, bookmark, index) => html += this.generateBookmarkHtml(bookmark, index), 
             '');
-        document.getElementById("bookmarkList").innerHTML = bookmarkHtml;
+        document.getElementById("bookmarkList").innerHTML = bookmarksHtml;
     }
     /*-   Add the deleteBookmark method.  It has 2 parameters, event and index
         -   prevent the default action of the anchor tag using the event parameter
@@ -140,17 +141,7 @@ class Bookmarker {
         this.bookmarks.splice(index, 1);
         this.fillBookmarksList();
     }
-}
-
-/*  
-    
-    END OF PART 1 - TEST AND DEBUG YOUR CODE - YOU SHOULD SEE HARDCODED BOOKMARKS YOUR ON PAGE
-
-    PART 2 - Delete a bookmark
-    
-    END OF PART 2 - TEST AND DEBUG YOUR CODE
-
-    PART 3 - Add a bookmark
+    /*- Add a bookmark
     -   Add the function addBookmark.  It has event as its parameter.
         -   Because the textboxes for entering bookmark info are in a form, you will
             need to prevent the form from being submitted (which is the default behavior)
@@ -162,7 +153,36 @@ class Bookmarker {
         -   clear the form on the UI
     -   Add a onsubmit handler to the form in the constructor.  
         It should call addBookmark.  You must bind this to the class because this will be the form
-        when the submit handler is called if you don't.
+        when the submit handler is called if you don't.*/
+    addBookmark(event) {
+        event.preventDefault();
+        let url = document.getElementById('url');
+        let description = document.getElementById('description');
+        let parentDiv = document.getElementById('url').parentElement;
+        if(url.value === '') {
+            parentDiv.classList.add('has-error');
+        } 
+        else if(description.value === '') {
+            parentDiv.classList.add('has-error');
+        }
+        else {
+            parentDiv.classList.remove('has-error');
+            this.bookmarks.push(newBookmark);
+            this.fillBookmarksList();
+        }
+        this.fillBookmarksList();
+    }
+}
+
+/*  
+    
+    END OF PART 1 - TEST AND DEBUG YOUR CODE - YOU SHOULD SEE HARDCODED BOOKMARKS YOUR ON PAGE
+
+    PART 2 - Delete a bookmark
+    
+    END OF PART 2 - TEST AND DEBUG YOUR CODE
+
+    PART 3 
     END OF PART 3 - TEST AND DEBUG YOUR CODE
 
     EXTRA CREDIT: 
