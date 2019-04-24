@@ -71,7 +71,7 @@ class Bookmarker {
             ];
         }
         this.fillBookmarksList = this.fillBookmarksList.bind(this);
-        this.addBookmark = this.addBookmark.bind(this);
+        document.getElementById("bookmark-form").onsubmit = this.addBookmark.bind(this);
         this.fillBookmarksList();
     }
 
@@ -156,6 +156,7 @@ class Bookmarker {
         when the submit handler is called if you don't.*/
     addBookmark(event) {
         event.preventDefault();
+        let title = document.getElementById('title');
         let url = document.getElementById('url');
         let description = document.getElementById('description');
         let parentDiv = document.getElementById('url').parentElement;
@@ -167,10 +168,19 @@ class Bookmarker {
         }
         else {
             parentDiv.classList.remove('has-error');
+            let newBookmark = {
+                description: description.value,
+                image: "",
+                link: url.value,
+                title: title.value
+            };
             this.bookmarks.push(newBookmark);
             this.fillBookmarksList();
         }
         this.fillBookmarksList();
+        description.value = "";
+        url.value = "";
+        title.value = "";
     }
 }
 
