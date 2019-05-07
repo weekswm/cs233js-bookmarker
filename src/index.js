@@ -40,16 +40,10 @@ class Bookmarker {
         this.appId = '21529b5a-4196-465e-87a8-b59e984a0899';
         this.bookmarks = [
             {
-                description: "Really cool site for open source photos", 
+                description: "", 
                 image: "",
-                link: "https://www.pexels.com/", 
-                title: "Free stock photos - Pexels"
-            },
-            {
-                description: "Great resource for open source photos", 
-                image: "",
-                link: "https://commons.wikimedia.org/wiki/Category:Images", 
-                title: "Category:Images - Wikimedia Commons"
+                link: "", 
+                title: ""
             }
         ];
         
@@ -58,16 +52,10 @@ class Bookmarker {
         else {
             this.bookmarks = [
                 {
-                    description: "Really cool site for open source photos", 
+                    description: "", 
                     image: "",
-                    link: "https://www.pexels.com/", 
-                    title: "https://www.pexels.com/"
-                },
-                {
-                    description: "Great resource for open source photos", 
-                    image: "",
-                    link: "https://commons.wikimedia.org/wiki/Category:Images", 
-                    title: "Category:Images - Wikimedia Commons"
+                    link: "", 
+                    title: ""
                 }
             ];
         }
@@ -92,7 +80,7 @@ class Bookmarker {
                 <div class="bookmark-form">
                     <div class="row">
                         <div class="col-sm-2">
-                            <img class="img-thumbnail" style="background-image:url('${bookmark.image}')">
+                            <img class="img-thumbnail" src=${bookmark.image}>
                         </div>
                         <div class="col-sm-9" type="text">
                             <ul class="bookmarkList list-unstyled">
@@ -157,27 +145,26 @@ class Bookmarker {
         when the submit handler is called if you don't.*/
     addBookmark(event) {
         event.preventDefault();
-        const url = encodeURIComponent(this.bookmarkUrl.value);
-        const urlForHref = this.bookmarkUrl.value;
-        let description = document.getElementById('description');
+        const url = encodeURIComponent(document.getElementById('url').value);
+        const urlForHref = document.getElementById('url').value;
+        const description = document.getElementById('description').value;
         fetch(`${this.apiUrl}/${url}?app_id=${this.appId}`)
-            .then (response => response.json())
-            .then (data => {
+            .then(response => response.json())
+            .then(data => { 
                 const bookmark = {
-                title: data.hybridGraph.title,
-                image: data.hybridGraph.image,
-                link: urlForHref,
-                description: description
-                }; // add the data from the api to our bookmark
-                this.bookmarks.push(bookmark); //add the bookmark to the list
-                this.fillBookmarksList(this.bookmarks);
-                this.storeBookmarks(this.bookmarks);
-                this.bookmarkForm.reset();
-                })
+                    title: data.hybridGraph.title,
+                    image: data.hybridGraph.image,
+                    link: urlForHref,
+                    description: description
+                };
+                this.bookmarks.push(bookmark);
+                this.fillBookmarksList();
+                document.querySelector('.bookmark-form').reset();
+            })
             .catch(error => {
-                console.log('There was a problem getting info!');
-                });
-        let parentDiv = document.getElementById('url').parentElement;
+                alert('There was a problem getting info!'); 
+            });
+        /*let parentDiv = document.getElementById('url').parentElement;
         if(url.value === '') {
             parentDiv.classList.add('has-error');
         } 
@@ -194,26 +181,11 @@ class Bookmarker {
             };
             this.bookmarks.push(newBookmark);
             this.fillBookmarksList();
-        }
-        this.fillBookmarksList();
-        description.value = "";
-        url.value = "";
-        title.value = "";
+        }*/
     }
 }
 
-/*  
-    
-    END OF PART 1 - TEST AND DEBUG YOUR CODE - YOU SHOULD SEE HARDCODED BOOKMARKS YOUR ON PAGE
-
-    PART 2 - Delete a bookmark
-    
-    END OF PART 2 - TEST AND DEBUG YOUR CODE
-
-    PART 3 
-    END OF PART 3 - TEST AND DEBUG YOUR CODE
-
-    EXTRA CREDIT: 
+/*  EXTRA CREDIT: 
     -   Do something on the page to draw attention to the form when you enter and leave 
         the form.  See my screen shot and the styles in the css file to an idea.
 
