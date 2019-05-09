@@ -49,7 +49,7 @@ class Bookmarker {
         
         if (localStorage['bookmarks'])
             this.bookmarks = JSON.parse(localStorage.getItem('bookmarks'))
-        else {
+        /*else {
             this.bookmarks = [
                 {
                     description: "", 
@@ -58,7 +58,7 @@ class Bookmarker {
                     title: ""
                 }
             ];
-        }
+        }*/
         this.fillBookmarksList = this.fillBookmarksList.bind(this);
         document.getElementById("bookmark-form").onsubmit = this.addBookmark.bind(this);
         this.fillBookmarksList();
