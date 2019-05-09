@@ -38,27 +38,9 @@ class Bookmarker {
     constructor() {
         this.apiUrl = 'https://opengraph.io/api/1.1/site';
         this.appId = '21529b5a-4196-465e-87a8-b59e984a0899';
-        this.bookmarks = [
-            {
-                description: "", 
-                image: "",
-                link: "", 
-                title: ""
-            }
-        ];
-        
+        this.bookmarks = [];
         if (localStorage['bookmarks'])
-            this.bookmarks = JSON.parse(localStorage.getItem('bookmarks'))
-        /*else {
-            this.bookmarks = [
-                {
-                    description: "", 
-                    image: "",
-                    link: "", 
-                    title: ""
-                }
-            ];
-        }*/
+            this.bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
         this.fillBookmarksList = this.fillBookmarksList.bind(this);
         document.getElementById("bookmark-form").onsubmit = this.addBookmark.bind(this);
         this.fillBookmarksList();
